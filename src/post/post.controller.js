@@ -85,7 +85,7 @@ const updatePost = async (req, res) => {
 
 const postController = {
   getAllPosts,
-  getSinglePost,
+  // getSinglePost,
   getAllPostsByUserId,
   createNewPost,
   updatePost,

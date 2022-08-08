@@ -23,9 +23,9 @@ const getAllPostsByQuery = async ({ q }) => {
 };
 
 // cari satu post
-const getSinglePost = async ({ postId }) => {
-  return await Post.findByPk(postId);
-};
+// const getSinglePost = async ({ postId }) => {
+//   return await Post.findByPk(postId);
+// };
 
 // cari semua post berdasarkan userId
 const getAllPostsByUserId = async ({ writer }) => {
@@ -68,7 +68,7 @@ const postRepository = {
   getAllPosts,
   getAllPostsByQuery,
   getAllPostsByUserId,
-  getSinglePost,
+  // getSinglePost,
   createNewPost,
   updatePost,
 };

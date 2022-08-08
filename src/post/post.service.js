@@ -5,9 +5,9 @@ const getAllPosts = async ({ q }) => {
   else return await postRepo.getAllPosts();
 };
 
-const getSinglePost = async ({ postId }) => {
-  return await postRepo.getSinglePost({ postId });
-};
+// const getSinglePost = async ({ postId }) => {
+//   return await postRepo.getSinglePost({ postId });
+// };
 
 const getAllPostsByUserId = async ({ writer }) => {
   return await postRepo.getAllPostsByUserId({ writer });
@@ -29,7 +29,7 @@ const updatePost = async ({ postId, title, image, description, authUser }) => {
 
 const postService = {
   getAllPosts,
-  getSinglePost,
+  // getSinglePost,
   getAllPostsByUserId,
   createNewPost,
   updatePost,
