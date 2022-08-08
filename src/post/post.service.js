@@ -9,35 +9,30 @@ const getSinglePost = async ({ postId }) => {
   return await postRepo.getSinglePost({ postId });
 };
 
-const createNewPost = async ({
-  title,
-  image,
-  description,
-  userId
-}) => {
-  return postRepo.createNewPost({ title, image, description, userId })
-}
+const getAllPostsByUserId = async ({ writer }) => {
+  return await postRepo.getAllPostsByUserId({ writer });
+};
 
-const updatePost = async ({
-  postId,
-  title,
-  image,
-  description
-}) => {
+const createNewPost = async ({ title, image, description, userId }) => {
+  return postRepo.createNewPost({ title, image, description, userId });
+};
+
+const updatePost = async ({ postId, title, image, description, authUser }) => {
   return await postRepo.updatePost({
     postId,
     title,
     image,
-    description
+    description,
+    authUser,
   });
 };
-
 
 const postService = {
   getAllPosts,
   getSinglePost,
+  getAllPostsByUserId,
   createNewPost,
   updatePost,
-}
+};
 
 module.exports = postService; 

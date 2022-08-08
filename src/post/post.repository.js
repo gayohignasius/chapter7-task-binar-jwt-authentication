@@ -1,13 +1,12 @@
 const { Post } = require('../database/models');
 const { Op } = require("sequelize");
-const { User } = require('../database/models');
 
 // cari semua post
 const getAllPosts = async () => {
   return await Post.findAll();
 };
 
-// cari post berdasarkan query 
+// cari post berdasarkan query
 const getAllPostsByQuery = async ({ q }) => {
   return await Post.findAll({
     where: {
@@ -28,24 +27,25 @@ const getSinglePost = async ({ postId }) => {
   return await Post.findByPk(postId);
 };
 
+// cari semua post berdasarkan userId
+const getAllPostsByUserId = async ({ writer }) => {
+  return await Post.findAll({
+    where: { userId: writer },
+  });
+};
+
 // buat post baru
-const createNewPost = async ({title, image, description, userId}) => {
+const createNewPost = async ({ title, image, description, userId }) => {
   return await Post.create({
     title,
     image,
     description,
-    userId
+    userId,
   });
-}
+};
 
 // edit post
-const updatePost = async ({
-  postId,
-  title,
-  image,
-  description,
-}) => {
-  console.log(postId)
+const updatePost = async ({ postId, title, image, description, authUser }) => {
   return await Post.update(
     {
       title,
@@ -53,7 +53,12 @@ const updatePost = async ({
       description,
     },
     {
-      where: { id: postId },
+      where: {
+        [Op.and]: {
+          id: postId,
+          userId: authUser,
+        },
+      },
       returning: true,
     }
   );
@@ -62,9 +67,10 @@ const updatePost = async ({
 const postRepository = {
   getAllPosts,
   getAllPostsByQuery,
+  getAllPostsByUserId,
   getSinglePost,
   createNewPost,
   updatePost,
-}
+};
 
 module.exports = postRepository;

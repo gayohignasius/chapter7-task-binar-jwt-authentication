@@ -14,11 +14,8 @@ const createNewUser = async ({
   return userRepo.createNewUser({
     fullName,
     email,
-    password: hashedPassword
+    password: hashedPassword,
   });
-  // } else {
-  //   return res.status(401).json({message: "Email already exists!"})
-  // }
 };
 
 const editUser = async ({

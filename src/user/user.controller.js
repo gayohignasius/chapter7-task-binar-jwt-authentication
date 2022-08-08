@@ -7,7 +7,6 @@ const createNewUser = async (req, res) => {
       fullName,
       email,
       password,
-      res
     });
     if (fullName != "" || email != "" || password != "") {
       if(newUser == undefined) {
