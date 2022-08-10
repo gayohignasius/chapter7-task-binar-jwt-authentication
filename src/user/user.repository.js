@@ -5,6 +5,11 @@ const getUser = async ({ email }) => {
   return await User.findOne({where: { email }, raw: true })
 }
 
+//get user
+const getUserByName = async ({ fullName }) => {
+  return await User.findOne({where: { fullName }, raw: true })
+}
+
 // create new user
 const createNewUser = async ({
   fullName,
@@ -42,6 +47,7 @@ const updateUser = async ({
 
 const userRepository = {
   getUser,
+  getUserByName,
   createNewUser,
   updateUser
 }
