@@ -28,7 +28,6 @@ const getAllPosts = async (req, res) => {
 
 const getAllPostsByUserId = async (req, res) => {
   const { writer } = req.query;
-  console.log("writer:" + writer);
 
   const authUser = req.auth;
 
@@ -78,7 +77,6 @@ const updatePost = async (req, res) => {
     if (updatePost) res.status(200).json(updatePost);
     else res.status(401).json({ message: "Unauthorized" });
   } catch (error) {
-    console.log(error);
     res.status(500).json("Internal Server Error!");
   }
 };

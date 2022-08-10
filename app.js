@@ -1,15 +1,12 @@
 require('dotenv').config()
 const express = require('express');
-const tokenVerification = require('./src/middleware/token.verification');
-const authRouter = require('./src/auth/auth.route');
-const postRouter = require('./src/post/post.route');
-const userRouter = require('./src/user/user.route');
+const authRouter = require("./src/auth/auth.route");
+const postRouter = require("./src/post/post.route");
+const userRouter = require("./src/user/user.route");
 const app = express();
 const port = process.env.PROD_PORT || process.env.DEV_PORT;
 
 app.use(express.json());
-
-// app.get('/', postRouter)
 
 app.use(postRouter);
 app.use(authRouter);
