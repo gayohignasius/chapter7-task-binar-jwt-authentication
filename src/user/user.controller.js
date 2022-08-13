@@ -8,7 +8,7 @@ const createNewUser = async (req, res) => {
       email,
       password,
     });
-    return res.json(newUser);
+    res.status(200).json(newUser);
   } catch (error) {
     return res.status(500).json({ message: "Internal server error!" });
   }
@@ -16,15 +16,17 @@ const createNewUser = async (req, res) => {
 
 const editUser = async (req, res) => {
   const { userId } = req.params;
-  const { fullName } = req.body;
+  const { fullName, email, password } = req.body;
   try {
-    const newUser = await userService.editUser({
+    const updatedUser = await userService.editUser({
       userId,
       fullName,
+      email,
+      password,
     });
-    return res.json(newUser);
+    res.status(200).json(updatedUser);
   } catch (error) {
-    return res.status(500).json({ message: "Internal server error!" });
+    res.status(500).json({ message: "Internal server error!" });
   }
 };
 

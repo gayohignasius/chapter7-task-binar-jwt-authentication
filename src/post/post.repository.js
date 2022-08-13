@@ -7,25 +7,20 @@ const getAllPosts = async () => {
 };
 
 // cari post berdasarkan query
-const getAllPostsByQuery = async ({ q }) => {
+const getAllPostsByQuery = async ({ search }) => {
   return await Post.findAll({
     where: {
-      [Op.or]: {
-        title: {
-          [Op.substring]: q,
-        },
-        description: {
-          [Op.substring]: q,
-        },
+      title: {
+        [Op.substring]: search,
       },
     },
   });
 };
 
-// cari satu post
-// const getSinglePost = async ({ postId }) => {
-//   return await Post.findByPk(postId);
-// };
+// cari satu post (detail post)
+const getAllPostsByPostId = async ({ postId }) => {
+  return await Post.findByPk(postId);
+};
 
 // cari semua post berdasarkan userId
 const getAllPostsByUserId = async ({ writer }) => {
@@ -68,7 +63,7 @@ const postRepository = {
   getAllPosts,
   getAllPostsByQuery,
   getAllPostsByUserId,
-  // getSinglePost,
+  getAllPostsByPostId,
   createNewPost,
   updatePost,
 };

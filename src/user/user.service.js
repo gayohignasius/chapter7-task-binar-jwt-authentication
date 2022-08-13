@@ -2,15 +2,8 @@ const userRepo = require('./user.repository');
 const bcrypt = require('bcrypt');
 const saltRound = 10;
 
-const createNewUser = async ({
-  fullName,
-  email,
-  password,
-}) => {
-  // const userExists = userRepo.getUser({ email });
-
-  // if (!userExists) {
-  const hashedPassword = await bcrypt.hash(password, saltRound); 
+const createNewUser = async ({ fullName, email, password }) => {
+  const hashedPassword = await bcrypt.hash(password, saltRound);
   return userRepo.createNewUser({
     fullName,
     email,
@@ -18,13 +11,13 @@ const createNewUser = async ({
   });
 };
 
-const editUser = async ({
-  userId,
-  fullName
-}) => {
+const editUser = async ({ userId, fullName, email, password }) => {
+  const hashedPassword = await bcrypt.hash(password, saltRound);
   return await userRepo.updateUser({
     userId,
     fullName,
+    email,
+    password: hashedPassword,
   });
 };
 
