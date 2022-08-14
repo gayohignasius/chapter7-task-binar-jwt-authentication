@@ -28,13 +28,12 @@ const createNewUser = async ({
   }
 };
 
-const updateUser = async ({
-  userId,
-  fullName
-}) => {
+const updateUser = async ({ userId, fullName, email, password }) => {
   return await User.update(
     {
       fullName,
+      email,
+      password,
     },
     {
       where: {
@@ -43,7 +42,7 @@ const updateUser = async ({
       returning: true,
     }
   );
-}
+};
 
 const userRepository = {
   getUser,

@@ -23,7 +23,7 @@ const authController = async (req, res) => {
   });
     return res.json({ accessToken: token });
   } else {
-    return res.status(401).json({message: "Login failed"});
+    return res.status(401).json({ message: "Login failed" });
   }
 }
 

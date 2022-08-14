@@ -1,16 +1,13 @@
 const postRepo = require('./post.repository');
 
-const getAllPosts = async ({ q }) => {
-  if (q) return await postRepo.getAllPostsByQuery({ q });
+const getAllPosts = async ({ search, writer }) => {
+  if (search) return await postRepo.getAllPostsByQuery({ search });
+  if (writer) return await postRepo.getAllPostsByUserId({ writer });
   else return await postRepo.getAllPosts();
 };
 
-// const getSinglePost = async ({ postId }) => {
-//   return await postRepo.getSinglePost({ postId });
-// };
-
-const getAllPostsByUserId = async ({ writer }) => {
-  return await postRepo.getAllPostsByUserId({ writer });
+const getAllPostsByPostId = async ({ postId }) => {
+  return await postRepo.getAllPostsByPostId({ postId });
 };
 
 const createNewPost = async ({ title, image, description, userId }) => {
@@ -29,8 +26,7 @@ const updatePost = async ({ postId, title, image, description, authUser }) => {
 
 const postService = {
   getAllPosts,
-  // getSinglePost,
-  getAllPostsByUserId,
+  getAllPostsByPostId,
   createNewPost,
   updatePost,
 };
