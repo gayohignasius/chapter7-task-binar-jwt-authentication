@@ -3,12 +3,21 @@ const postService = require("./post.service");
 const getAllPosts = async (req, res) => {
   const { search } = req.query;
   const { writer } = req.query;
+  const { sort } = req.query;
+  const { page } = req.query;
+  const { size } = req.query;
 
   try {
-    const posts = await postService.getAllPosts({ search, writer });
-    if (posts) res.status(200).json(posts);
-    else res.status(200).json({ message: "No post found!" });
+    const posts = await postService.getAllPosts({
+      search,
+      writer,
+      sort,
+      page,
+      size,
+    });
+    res.status(200).json(posts);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -18,7 +27,6 @@ const getAllPostsByPostId = async (req, res) => {
 
   try {
     const posts = await postService.getAllPostsByPostId({ postId });
-    console.log(posts);
     if (posts) res.status(200).json(posts);
     else res.status(200).json({ message: "No post found!" });
   } catch (error) {
