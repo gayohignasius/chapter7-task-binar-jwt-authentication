@@ -18,9 +18,33 @@ const postRouter = express.Router();
  *      - in: query
  *        name: search
  *        required: false
+ *        schema:
+ *          type: string
+ *        description: to get specific posts with title
  *      - in: query
  *        name: writer
  *        required: false
+ *        schema:
+ *          type: integer
+ *        description: to get specific post with user id
+ *      - in: query
+ *        name: sort
+ *        required: false
+ *        schema:
+ *          type: string
+ *        description: sorting query of title field can be 'asc' or 'desc' (title,desc)
+ *      - in: query
+ *        name: page
+ *        required: false
+ *        schema:
+ *          type: integer
+ *        description: number for the page of pagination
+ *      - in: query
+ *        name: size
+ *        required: false
+ *        schema:
+ *          tpe: integer
+ *        description: number for query shown of the each page of pagination
  *    responses:
  *      '200':
  *        content:

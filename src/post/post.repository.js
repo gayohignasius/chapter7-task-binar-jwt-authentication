@@ -2,19 +2,49 @@ const { Post } = require('../database/models');
 const { Op } = require("sequelize");
 
 // cari semua post
-const getAllPosts = async () => {
-  return await Post.findAll();
-};
+const getAllPosts = async ({ search, writer, sort, page, size }) => {
+  const searching = search || "";
+  const user = writer || 0;
+  const pages = Number.parseInt(page) || 0;
+  const sizes = Number.parseInt(size) || 3;
+  let sorting = sort || "title";
 
-// cari post berdasarkan query
-const getAllPostsByQuery = async ({ search }) => {
-  return await Post.findAll({
-    where: {
-      title: {
-        [Op.substring]: search,
+  sort ? (sorting = sort.split(",")) : (sorting = [sorting]);
+  let sortBy = {};
+  if (sorting[1]) {
+    sortBy[sorting[0]] = sorting[1];
+  } else sortBy[sorting[0]] = "asc";
+
+  let data = {};
+  if (user != 0) {
+    data = await Post.findAndCountAll({
+      where: {
+        userId: {
+          [Op.in]: [user],
+        },
       },
-    },
-  });
+      order: [[sortBy]],
+      limit: sizes,
+      offset: sizes * pages,
+    });
+  } else {
+    data = await Post.findAndCountAll({
+      where: {
+        title: {
+          [Op.substring]: searching,
+        },
+      },
+      order: [[sorting]],
+      limit: sizes,
+      offset: sizes * pages,
+    });
+  }
+  let posts = {
+    data: data.rows,
+    totalPages: Math.ceil(data.count / sizes),
+  };
+
+  return posts;
 };
 
 // cari satu post (detail post)
@@ -61,7 +91,6 @@ const updatePost = async ({ postId, title, image, description, authUser }) => {
 
 const postRepository = {
   getAllPosts,
-  getAllPostsByQuery,
   getAllPostsByUserId,
   getAllPostsByPostId,
   createNewPost,
