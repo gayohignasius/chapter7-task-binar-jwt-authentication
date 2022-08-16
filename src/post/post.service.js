@@ -1,7 +1,14 @@
 const postRepo = require('./post.repository');
 
-const getAllPosts = async ({ search, writer, sort, page, size }) => {
-  return await postRepo.getAllPosts({ search, writer, sort, page, size });
+const getAllPosts = async ({ search, writer, sort, direction, page, size }) => {
+  return await postRepo.getAllPosts({
+    search,
+    writer,
+    sort,
+    direction,
+    page,
+    size,
+  });
 };
 
 const getAllPostsByPostId = async ({ postId }) => {
