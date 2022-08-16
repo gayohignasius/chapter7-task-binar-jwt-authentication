@@ -32,7 +32,13 @@ const postRouter = express.Router();
  *        required: false
  *        schema:
  *          type: string
- *        description: sorting query of title field can be 'asc' or 'desc' (title,desc)
+ *        description: sorting query of field column
+ *      - in: query
+ *        name: direction
+ *        required: false
+ *        schema:
+ *          type: string
+ *        description: sorting direction can be 'asc' or 'desc'
  *      - in: query
  *        name: page
  *        required: false

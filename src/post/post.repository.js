@@ -2,18 +2,27 @@ const { Post } = require('../database/models');
 const { Op } = require("sequelize");
 
 // cari semua post
-const getAllPosts = async ({ search, writer, sort, page, size }) => {
+const getAllPosts = async ({ search, writer, sort, direction, page, size }) => {
   const searching = search || "";
   const user = writer || 0;
   const pages = Number.parseInt(page) || 0;
   const sizes = Number.parseInt(size) || 3;
-  let sorting = sort || "title";
 
-  sort ? (sorting = sort.split(",")) : (sorting = [sorting]);
-  let sortBy = {};
-  if (sorting[1]) {
-    sortBy[sorting[0]] = sorting[1];
-  } else sortBy[sorting[0]] = "asc";
+  const sorting = ["id", "title", "description"];
+  const directions = ["asc", "desc"];
+  let sorted;
+  let ordered;
+  for (let i = 0; i < sorting.length; i++) {
+    if (sort == sorting[i]) sorted = sorting[i];
+    else sorted = "title";
+  }
+  for (let i = 0; i < directions.length; i++) {
+    if (direction == directions[i]) ordered = directions[i];
+    else ordered = "asc";
+  }
+
+  console.log(sorted);
+  console.log(ordered);
 
   let data = {};
   if (user != 0) {
@@ -23,7 +32,7 @@ const getAllPosts = async ({ search, writer, sort, page, size }) => {
           [Op.in]: [user],
         },
       },
-      order: [[sortBy]],
+      order: [[sorted, ordered]],
       limit: sizes,
       offset: sizes * pages,
     });
@@ -34,7 +43,7 @@ const getAllPosts = async ({ search, writer, sort, page, size }) => {
           [Op.substring]: searching,
         },
       },
-      order: [[sorting]],
+      order: [[sorted, ordered]],
       limit: sizes,
       offset: sizes * pages,
     });

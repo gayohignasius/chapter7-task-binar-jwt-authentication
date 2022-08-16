@@ -4,6 +4,7 @@ const getAllPosts = async (req, res) => {
   const { search } = req.query;
   const { writer } = req.query;
   const { sort } = req.query;
+  const { direction } = req.query;
   const { page } = req.query;
   const { size } = req.query;
 
@@ -12,6 +13,7 @@ const getAllPosts = async (req, res) => {
       search,
       writer,
       sort,
+      direction,
       page,
       size,
     });
