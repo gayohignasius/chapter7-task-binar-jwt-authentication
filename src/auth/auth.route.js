@@ -4,6 +4,7 @@ const authController = require("./auth.controller");
 const { checkSchema } = require("express-validator");
 
 const schemas = require("../middleware/validation/schemas");
+const corsOption = require("../middleware/corsOption");
 const authRouter = express.Router();
 
 /**

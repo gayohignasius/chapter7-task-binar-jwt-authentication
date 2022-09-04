@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express');
+const cors = require("cors");
 const authRouter = require("./src/auth/auth.route");
 const postRouter = require("./src/post/post.route");
 const userRouter = require("./src/user/user.route");
@@ -11,6 +12,7 @@ const swaggerDoc = require("./src/config/swagger");
 
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc));
 app.use(express.json());
+app.use(cors());
 
 app.use(postRouter);
 app.use(authRouter);
