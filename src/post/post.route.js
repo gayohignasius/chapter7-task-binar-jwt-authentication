@@ -5,6 +5,7 @@ const { checkSchema } = require("express-validator");
 
 const schemas = require("../middleware/validation/schemas");
 const postController = require("./post.controller");
+const corsOption = require("../middleware/corsOption");
 const postRouter = express.Router();
 
 /**

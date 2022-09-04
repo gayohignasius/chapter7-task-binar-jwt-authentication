@@ -60,6 +60,7 @@ const updatePost = async (req, res) => {
 
   try {
     const post = await postService.getAllPostsByPostId({ postId });
+    console.log("posts: " + post);
     if (post.userId == authUser) {
       const updatedPost = await postService.updatePost({
         postId,
